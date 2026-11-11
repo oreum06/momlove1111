@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#FFF4E4">
+<meta property="og:title" content="빼빼로 11개가 도착했어요 🍫">
+<meta property="og:description" content="하나씩 뽑을 때마다 마음이 하나씩 나와요. 11개를 다 뽑으면 마지막 편지가 열려요!">
+<title>영아도리 × 보물이 1111</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Jua&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--bg:#FFF4E4;--dot:#FFE2CC;--ink:#4A3428;--ink2:#7A5A48;--red:#E2404E;--red-d:#B92E3B;--pink:#FF9FB3;--yellow:#FFE15A;--paper:#FFFDF6;--choco:#6B3E26;--biscuit:#EDC47F;color-scheme:light}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background-color:var(--bg);background-image:radial-gradient(var(--dot) 2.2px,transparent 2.8px);background-size:24px 24px;color:var(--ink);font-family:'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+h1,h2,h3,p{margin:0;font-weight:400}
+b{font-weight:400}
+button{font:inherit;color:inherit}
+.app{max-width:440px;margin:0 auto;padding:20px 16px 130px}
+body.has-banner .app{padding-top:84px}
+.center{text-align:center}
+.eyebrow{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:2px 14px;font-size:14px}
+.title{font-size:30px;line-height:1.2;letter-spacing:-.5px;margin-top:8px}
+.title em{font-style:normal;color:var(--red);display:inline-block;animation:wiggle 1.4s ease-in-out infinite}
+.title.sm{font-size:24px}
+.hero{text-align:center}
+
+/* 말풍선 */
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:10px 14px;font-size:17px;line-height:1.4;box-shadow:0 4px 0 var(--ink);animation:bubbleIn .6s cubic-bezier(.2,1.6,.4,1) both}
+.bubble::after{content:'';position:absolute;bottom:-11px;left:50%;width:16px;height:16px;background:#fff;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:translateX(-50%) rotate(45deg)}
+.bubble.left::after{left:-11px;top:50%;bottom:auto;transform:translateY(-50%) rotate(135deg)}
+.hero-chara{display:flex;flex-direction:column;align-items:center;gap:14px;margin:18px 0 4px}
+.side{display:flex;align-items:center;gap:16px;margin:12px 0}
+.side .cw{flex:none;margin:0}
+.side .bubble{flex:1}
+
+/* 패널·입력 */
+.panel{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:18px 16px 6px;box-shadow:0 5px 0 var(--ink);margin:18px 0}
+.panel h3{font-size:19px;margin-bottom:8px}
+.panel p{font-size:15px;color:var(--ink2);margin-bottom:10px}
+.field{display:block;margin-bottom:14px}
+.field>span{display:block;font-size:16px;margin-bottom:6px}
+input,textarea{width:100%;font:inherit;font-size:19px;color:var(--ink);background:var(--paper);border:3px solid var(--ink);border-radius:16px;padding:10px 14px;outline:none;transition:box-shadow .15s}
+input:focus,textarea:focus{box-shadow:0 0 0 4px var(--pink)}
+.field small{display:block;color:var(--ink2);font-size:14px;margin-top:4px}
+details.more{margin-bottom:12px}
+details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--ink2);font-size:16px}
+details.more summary::before{content:'＋';margin-right:6px}
+details.more[open] summary::before{content:'－'}
+
+/* 버튼 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:0 20px;border-radius:999px;border:3px solid var(--ink);background:#fff;color:var(--ink);font-size:19px;box-shadow:0 5px 0 var(--ink);transition:transform .1s,box-shadow .1s;cursor:pointer;text-decoration:none}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.primary{background:var(--red);color:#fff}
+.btn:disabled{background:#EADFD3;color:var(--ink2);cursor:not-allowed}
+.btn.block{width:100%;margin-top:14px}
+.btn.grow{flex:1}
+.btn.ghost{background:transparent;box-shadow:none;border-style:dashed;font-size:16px;min-height:46px}
+.btn:focus-visible,.sb:focus-visible,summary:focus-visible{outline:3px dashed var(--red);outline-offset:3px}
+.row{display:flex;gap:10px;margin-bottom:12px}
+.row .btn{flex:1;padding:0 10px;font-size:17px}
+
+/* 캐릭터 */
+.cw{margin:0 auto;transform-origin:50% 100%;cursor:pointer;will-change:transform}
+.cw .jel{transform-origin:50% 100%;will-change:transform}
+.hug{margin:10px auto 0;animation:cuddle 1.6s ease-in-out infinite}
+.hug img{display:block;width:100%;height:auto}
+/* 볼 비비기: 좌우로 기울며 살짝 눌렸다 늘어남 */
+@keyframes cuddle{0%,100%{transform:rotate(-3deg) scale(1,1)}25%{transform:rotate(0) scale(1.05,.95)}50%{transform:rotate(3deg) scale(1,1)}75%{transform:rotate(0) translateY(-5px) scale(.97,1.04)}}
+.vchar canvas{display:none;width:100%;height:auto}
+.vchar video{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.vchar.ready canvas{display:block;animation:fade .3s}
+.vchar.ready .vfb{display:none}
+.chara{display:block;width:100%;height:auto;overflow:visible}
+.hop{animation:hop 1s ease-in-out infinite}
+.sway{animation:sway 2s ease-in-out infinite}
+.jl{animation:jellyLoop 1.2s ease-in-out infinite}
+.d2{animation-delay:-.5s}
+.chara .eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.4s infinite}
+.chara .head{transform-origin:100px 160px;animation:headBob 1.2s ease-in-out infinite}
+.chara .pony{transform-origin:158px 52px;animation:pony 1.2s ease-in-out infinite;animation-delay:-.25s}
+.chara .lock-l{transform-origin:62px 60px;animation:lockSwing 1.2s ease-in-out infinite;animation-delay:-.2s}
+.chara .lock-r{transform-origin:138px 60px;animation:lockSwing 1.2s ease-in-out infinite;animation-delay:-.2s}
+.chara .hair-back{transform-origin:100px 60px;animation:lockSwing 1.2s ease-in-out infinite;animation-delay:-.3s}
+.chara .wave{transform-origin:132px 164px;animation:wave .4s ease-in-out infinite alternate}
+.chara .scribble{transform-origin:130px 166px;animation:scribble .28s ease-in-out infinite alternate}
+.chara .cheerL{transform-origin:70px 164px;animation:cheerL .35s ease-in-out infinite alternate}
+.chara .cheerR{transform-origin:130px 164px;animation:cheerR .35s ease-in-out infinite alternate}
+.chara .fh{transform-box:fill-box;transform-origin:center;animation:heartPop 1.1s ease-in-out infinite}
+.chara .q{transform-box:fill-box;transform-origin:50% 100%;animation:qBob .7s ease-in-out infinite alternate}
+.chara .drop{animation:drop 1.6s ease-in infinite}
+.chara .drop.d2{animation-delay:-.8s}
+
+/* S2 */
+.prog{position:sticky;top:0;z-index:5;background:var(--bg);margin:-20px -16px 8px;padding:12px 16px 10px;border-bottom:3px dashed var(--dot)}
+.prog-top{display:flex;justify-content:space-between;align-items:center;font-size:18px}
+.prog-top #pn{color:var(--red);font-size:24px}
+.saved{font-size:13px;color:var(--ink2);opacity:0;transition:opacity .3s;margin-left:6px}
+.saved.on{opacity:1}
+.prog-sticks{display:flex;gap:4px;margin-top:6px}
+.ps{flex:1;height:14px;border:2.5px solid var(--ink);border-radius:8px;background:#fff}
+.ps.on{background:linear-gradient(90deg,var(--choco) 0 65%,var(--biscuit) 65%);animation:bump .45s}
+.slot{background:#fff;border:3px solid var(--ink);border-radius:20px;padding:12px 12px 10px;margin:12px 0;box-shadow:0 4px 0 var(--ink)}
+.slot.done{background:#FFF9E3}
+.slot-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;min-height:40px}
+.slot-head small{color:var(--ink2)}
+.slot-head .cnt{margin-left:auto;font-size:14px;color:var(--ink2)}
+.slot textarea{font-family:'Gaegu','Jua',cursive;font-weight:700;font-size:22px;line-height:1.35;resize:none;min-height:70px;display:block}
+.check{display:inline-block;color:#fff;background:#2E9B66;border:2px solid var(--ink);border-radius:50%;width:22px;height:22px;font-size:13px;line-height:18px;text-align:center;transform:scale(0)}
+.slot.done .check{transform:scale(1);animation:popIn .4s cubic-bezier(.2,1.8,.4,1)}
+.bottombar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:26px 16px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 35%)}
+.bottombar .inner{max-width:408px;margin:0 auto;display:flex;gap:10px}
+
+/* 빼빼로 */
+.f-choco{--coat:#6B3E26}
+.f-almond{--coat:radial-gradient(circle,#F3D39B 0 2px,transparent 2.6px) 0 0/8px 9px,#6B3E26}
+.f-straw{--coat:radial-gradient(circle,#FFE6EC 0 1.6px,transparent 2.2px) 0 0/7px 8px,#F48FAE}
+.f-white{--coat:radial-gradient(circle,#FF7E9A 0 1.6px,transparent 2.2px) 0 0/9px 10px,radial-gradient(circle,#6CC0F0 0 1.6px,transparent 2.2px) 4px 5px/9px 10px,#FFF1D2}
+.f-matcha{--coat:#8DBF6A}
+.mini,.stick{display:block;border:3px solid var(--ink);background:var(--biscuit);position:relative;overflow:hidden}
+.mini::before,.stick::before{content:'';position:absolute;left:0;right:0;top:0;height:64%;background:var(--coat);border-bottom:2px solid rgba(74,52,40,.35)}
+.mini{flex:none;width:13px;height:38px;border-width:2.5px;border-radius:7px 7px 3px 3px;transform:rotate(18deg);margin:0 4px}
+.slot.done .mini{animation:boing .6s}
+
+.box{position:relative;width:min(330px,100%);height:316px;margin:4px auto 0}
+.box-back{position:absolute;left:10px;right:10px;bottom:30px;height:150px;background:var(--red-d);border:4px solid var(--ink);border-radius:18px}
+.sticks{position:absolute;left:20px;right:20px;bottom:74px;height:236px;display:flex;justify-content:space-between;align-items:flex-end;z-index:1}
+.sb{width:26px;height:100%;padding:0;border:0;background:none;display:flex;align-items:flex-end;justify-content:center;cursor:pointer;border-radius:10px}
+.stick{width:18px;height:var(--h);border-radius:10px 10px 4px 4px;transform-origin:50% 100%;animation:dance 1.4s ease-in-out infinite;animation-delay:calc(var(--i)*-.13s)}
+.sb:hover .stick,.sb:focus-visible .stick{animation-duration:.45s}
+.sb.pulled .stick{animation:pull .7s cubic-bezier(.3,.1,.3,1) forwards}
+.sb.gone{visibility:hidden}
+.box-front{position:absolute;left:0;right:0;bottom:0;height:134px;background:var(--red);border:4px solid var(--ink);border-radius:16px 16px 26px 26px;box-shadow:0 6px 0 var(--ink),inset 0 -12px 0 rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;z-index:2;overflow:hidden}
+.box-front::before{content:'';position:absolute;top:0;bottom:0;right:26px;width:20px;background:var(--yellow);border-left:3px solid var(--ink);border-right:3px solid var(--ink)}
+.box-to{font-size:29px;line-height:1.1;text-shadow:0 3px 0 var(--ink);padding:0 60px 0 14px;word-break:keep-all}
+.box-count{background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:999px;padding:1px 14px;font-size:17px;margin-top:8px;margin-right:40px}
+.box-count b{color:var(--red);font-size:22px;display:inline-block}
+.box-count b.bump{animation:bump .5s}
+.hint{text-align:center;margin-top:18px;font-size:19px;animation:hop 1.2s ease-in-out infinite}
+
+/* 오버레이·카드 */
+.overlay{position:fixed;inset:0;z-index:40;background:rgba(58,38,28,.78);display:flex;align-items:center;justify-content:center;padding:16px;animation:fade .2s both;overflow:auto}
+.card{position:relative;width:min(400px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--paper);border:4px solid var(--ink);border-radius:28px;box-shadow:0 8px 0 var(--ink);padding:18px 18px 20px;animation:popIn .6s cubic-bezier(.2,1.5,.4,1) both}
+.card-top{display:flex;align-items:center;gap:12px}
+.card-top .cw{margin:0}
+.badge{background:var(--yellow);border:3px solid var(--ink);border-radius:999px;padding:2px 16px;font-size:18px;transform:rotate(-3deg)}
+.badge b{font-size:28px;color:#C4283A}
+.pep-h{height:20px;border:3px solid var(--ink);border-radius:4px 12px 12px 4px;background:var(--biscuit);position:relative;overflow:hidden;margin:14px 0 10px;animation:slideIn .6s .1s cubic-bezier(.2,1.4,.4,1) both}
+.pep-h::before{content:'';position:absolute;top:0;bottom:0;right:0;width:66%;background:var(--coat)}
+.msg{font-family:'Gaegu','Jua',cursive;font-weight:700;font-size:27px;line-height:40px;padding:0 4px;min-height:120px;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;background-image:repeating-linear-gradient(transparent 0 38px,#F6C9D2 38px 40px)}
+.msg .w{display:inline-block;animation:wordIn .45s cubic-bezier(.2,1.6,.4,1) both}
+.sign{display:flex;align-items:center;justify-content:flex-end;gap:8px;font-family:'Gaegu','Jua',cursive;font-weight:700;font-size:22px;margin:8px 0 4px}
+.sign .cw{margin:0}
+.celebrate{text-align:center}
+.duo{display:flex;justify-content:center}
+.duo .cw{margin:0 -6px}
+.big-pop{font-size:36px;line-height:1.25;color:#fff;margin:6px 0 22px;text-shadow:0 3px 0 var(--ink),3px 0 0 var(--ink),-3px 0 0 var(--ink),0 -3px 0 var(--ink),3px 3px 0 var(--ink),-3px 3px 0 var(--ink);animation:popIn .8s cubic-bezier(.2,1.5,.4,1) both;word-break:keep-all}
+.rr-item{border-bottom:2px dashed #F2C9B0;padding:10px 0}
+.rr-n{font-size:14px;color:var(--ink2)}
+.rr-m{font-family:'Gaegu','Jua',cursive;font-weight:700;font-size:23px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* 편지 */
+.letter{background-color:var(--paper);border:4px solid var(--ink);border-radius:20px;box-shadow:0 6px 0 var(--ink);padding:18px 20px 16px;margin-top:10px;font-family:'Gaegu','Jua',cursive;font-weight:700;font-size:24px;line-height:38px;background-image:repeating-linear-gradient(transparent 0 36px,#F6C9D2 36px 38px);background-position:0 18px;transform-origin:50% 100%;animation:unfold 1s cubic-bezier(.2,1.2,.4,1) both}
+.l-head{color:#C4283A}
+.l-body{white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
+.l-sign{text-align:right}
+
+/* 미리보기 배너·토스트·링크 */
+#banner{position:fixed;top:0;left:0;right:0;z-index:30;display:none}
+body.has-banner #banner{display:block}
+.bn{max-width:440px;margin:0 auto;padding:8px 12px 10px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:8px;border-radius:0 0 18px 18px}
+.bn p{flex:1;font-size:15px;line-height:1.25}
+.bn small{font-size:12px;opacity:.85}
+.bn .btn{min-height:44px;padding:0 12px;font-size:15px;box-shadow:0 3px 0 #000;border-color:#000;white-space:nowrap}
+#toast{position:fixed;left:50%;bottom:96px;z-index:70;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:16px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,1.6,.4,1);max-width:calc(100vw - 32px);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.linkbox input{font-size:14px;font-family:ui-monospace,monospace;margin-bottom:12px;text-overflow:ellipsis}
+.warn{background:#FFF1C9}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+
+/* 움직임 */
+/* 점프: 구간마다 가속도를 달리해 중력처럼 (올라갈 땐 감속, 내려올 땐 가속, 착지 후 스프링 복원) */
+@keyframes hop{
+  0%{transform:translateY(0) scale(1,1);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  14%{transform:translateY(0) scale(1.08,.92);animation-timing-function:cubic-bezier(.15,.6,.35,1)}
+  44%{transform:translateY(-15px) scale(.96,1.05);animation-timing-function:cubic-bezier(.65,0,.85,.4)}
+  68%{transform:translateY(0) scale(1.1,.9);animation-timing-function:cubic-bezier(.3,0,.4,1)}
+  82%{transform:translateY(0) scale(.97,1.03);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  100%{transform:translateY(0) scale(1,1)}}
+@keyframes lockSwing{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-4px)}}
+@keyframes jellyLoop{0%,100%{transform:skewX(0) scale(1,1)}25%{transform:skewX(4deg) scale(1.05,.96)}50%{transform:skewX(0) scale(.96,1.05)}75%{transform:skewX(-4deg) scale(1.04,.97)}}
+@keyframes boing{0%{transform:scale(1,1)}20%{transform:scale(1.25,.75)}40%{transform:scale(.8,1.2)}55%{transform:scale(1.12,.88)}70%{transform:scale(.95,1.05)}85%{transform:scale(1.03,.97)}100%{transform:scale(1,1)}}
+@keyframes popIn{0%{transform:scale(.3) rotate(-8deg);opacity:0}60%{transform:scale(1.08) rotate(2deg);opacity:1}80%{transform:scale(.96)}100%{transform:scale(1) rotate(0)}}
+@keyframes bubbleIn{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg) scale(1.1)}}
+@keyframes fade{from{opacity:0}}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
+@keyframes slideIn{from{transform:translateX(-120%) rotate(-10deg)}to{transform:none}}
+@keyframes wordIn{0%{opacity:0;transform:translateY(14px) scale(.6)}70%{transform:translateY(-3px) scale(1.08);opacity:1}100%{transform:none;opacity:1}}
+@keyframes unfold{0%{transform:translateY(60px) scale(.5,.05);opacity:0}50%{transform:translateY(-6px) scale(1.04,.6);opacity:1}75%{transform:scale(.98,1.04)}100%{transform:none}}
+@keyframes dance{0%,100%{transform:rotate(-5deg)}25%{transform:translateY(-7px) rotate(0) scale(.96,1.05)}50%{transform:rotate(5deg)}75%{transform:translateY(-3px) rotate(0)}}
+@keyframes pull{0%{transform:translateY(0)}25%{transform:translateY(14px) scale(1.2,.85)}55%{transform:translateY(-150px) rotate(-8deg) scale(.95,1.1);opacity:1}100%{transform:translateY(-330px) rotate(25deg) scale(1.3);opacity:0}}
+@keyframes blink{0%,91%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes headBob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes pony{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(9deg)}}
+@keyframes wave{from{transform:rotate(-12deg)}to{transform:rotate(16deg)}}
+@keyframes scribble{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(5deg) translateY(3px)}}
+@keyframes cheerL{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
+@keyframes cheerR{from{transform:rotate(8deg)}to{transform:rotate(-14deg)}}
+@keyframes heartPop{0%,100%{transform:scale(.7)}50%{transform:scale(1.25)}}
+@keyframes qBob{from{transform:rotate(-12deg)}to{transform:rotate(12deg) translateY(-4px)}}
+@keyframes drop{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(20px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="banner"></div>
+<main id="app" class="app"></main>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const app=$('#app'), bannerEl=$('#banner');
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const KEY_DRAFT='pp1111:draft';
+const DEF={to:'영아도리',from:'보물이',call:'김엄마',head:'엄마돌이'};
+const DEFAULT_LETTER='빼빼로 11개 다 찾아 줘서 고마워!\n말로 하려니까 쑥스러워서 여기에 몰래 적어 봤어.\n늘 고맙고, 많이 많이 사랑해.\n오늘은 빼빼로데이니까 우리 맛있는 거 먹자!';
+const IDEAS=['엄마 밥이 세상에서 제일 맛있어','어릴 때 맨날 업어 줘서 고마워','엄마 웃을 때 진짜 예뻐','잔소리도 사실 다 고마웠어','다음엔 우리 둘이 여행 가자!','힘들 때 엄마 목소리 들으면 힘이 나','엄마 딸이라서 나는 행운이야','요즘 무리하지 말고 꼭 쉬어','엄마가 끓여 준 김치찌개 또 먹고 싶다','이제는 내가 엄마 지켜 줄게','우주만큼 사랑해 ♥'];
+const FLAVORS=['choco','almond','straw','white','choco','matcha','almond','straw','choco','white','almond'];
+const HEIGHTS=[176,192,168,186,198,180,194,170,188,174,184];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nm=(s,d)=>(typeof s==='string'?s:'').trim().slice(0,10)||d;
+function iga(n){const c=n.charCodeAt(n.length-1);return n+((c>=0xAC00&&c<=0xD7A3&&(c-0xAC00)%28)?'이가':'가');}
+const store={
+  get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+};
+
+/* ───────── 캔버스 파티클 ───────── */
+const FX=(()=>{
+  const cv=$('#fx'),ctx=cv.getContext('2d');let W=0,H=0,parts=[],raf=0;
+  const COLS=['#FF6B81','#FFD23F','#6B3E26','#FF9FB3','#7CC6F0','#9BE3B0','#F2852B'];
+  function resize(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);}
+  addEventListener('resize',resize);resize();
+  function shape(p){
+    const s=p.size;ctx.beginPath();
+    if(p.shape==='heart'){ctx.moveTo(0,-s*.25);ctx.bezierCurveTo(-s*.5,-s*.85,-s*1.1,-s*.1,0,s*.6);ctx.bezierCurveTo(s*1.1,-s*.1,s*.5,-s*.85,0,-s*.25);}
+    else if(p.shape==='star'){for(let i=0;i<10;i++){const r=i%2?s*.42:s,a=i*Math.PI/5-Math.PI/2;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();}
+    else if(p.shape==='dot'){ctx.arc(0,0,s*.5,0,7);}
+    else{ctx.rect(-s*.6,-s*.3,s*1.2,s*.6);}
+    ctx.fillStyle=p.color;ctx.fill();
+    if(p.shape==='heart'||p.shape==='star'){ctx.lineWidth=1.6;ctx.strokeStyle='#4A3428';ctx.stroke();}
+  }
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    parts=parts.filter(p=>p.life<p.max&&p.y<H+40);
+    for(const p of parts){p.life++;p.vy+=p.g;p.vx*=.99;p.x+=p.vx+Math.sin(p.life*.08+p.ph)*p.sw;p.y+=p.vy;p.rot+=p.vr;
+      ctx.save();ctx.globalAlpha=Math.min(1,(p.max-p.life)/20);ctx.translate(p.x,p.y);ctx.rotate(p.rot);shape(p);ctx.restore();}
+    raf=parts.length?requestAnimationFrame(loop):0;
+  }
+  function add(p){if(parts.length>400)return;parts.push(Object.assign({life:0,ph:Math.random()*6,sw:0,rot:Math.random()*6,vr:(Math.random()-.5)*.3,color:COLS[Math.random()*COLS.length|0]},p));if(!raf)raf=requestAnimationFrame(loop);}
+  return{
+    burst(x,y,n=14,shapes=['star','heart','dot']){if(RM)return;for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=2+Math.random()*5;add({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-3,g:.22,size:5+Math.random()*6,shape:shapes[i%shapes.length],max:50+Math.random()*25});}},
+    rain(n=110,shapes=['rect','rect','heart','star']){if(RM)return;for(let i=0;i<n;i++)setTimeout(()=>add({x:Math.random()*W,y:-20,vx:(Math.random()-.5)*1.5,vy:1.5+Math.random()*2.5,g:.03,sw:1.2,size:6+Math.random()*7,shape:shapes[i%shapes.length],max:260}),i*22);}
+  };
+})();
+
+/* 손그림처럼 선이 살짝 떨리는 효과 */
+/* 탭하면 젤리처럼: 감쇠 스프링(질량-스프링-댐퍼) 물리로 매 프레임 계산 */
+function spring(el,kick=.3){
+  if(RM)return;
+  if(el._sp)cancelAnimationFrame(el._sp);
+  const k=380,c=10;let x=kick,v=0,last=performance.now();
+  const step=now=>{
+    const dt=Math.min(.032,(now-last)/1000);last=now;
+    v+=(-k*x-c*v)*dt;x+=v*dt;
+    el.style.transform=`scale(${(1+x).toFixed(4)},${(1-x*.9).toFixed(4)})`;
+    if(Math.abs(x)>.002||Math.abs(v)>.03)el._sp=requestAnimationFrame(step);
+    else{el.style.transform='';el._sp=0;}
+  };
+  el._sp=requestAnimationFrame(step);
+}
+
+/* ───────── 캐릭터 (직접 그린 SVG) ───────── */
+const L='#4A3428',SK='#FFFDF8',CH='#FFB3B8',GH='#D9A877',BOW='#F2852B',YEL='#FFE45E',MH='#7A6C63',PINK='#F6ABB6',PANTS='#66748F';
+function scallop(cx,cy,rx,ry,a0,a1,n,b){
+  const P=a=>[cx+rx*Math.cos(a),cy+ry*Math.sin(a)],f=v=>v.toFixed(1);
+  let p=P(a0*Math.PI/180),d=`M${f(p[0])} ${f(p[1])}`;
+  for(let i=1;i<=n;i++){const a=(a0+(a1-a0)*i/n)*Math.PI/180,am=(a0+(a1-a0)*(i-.5)/n)*Math.PI/180;p=P(a);
+    d+=` Q${f(cx+(rx+b)*Math.cos(am))} ${f(cy+(ry+b)*Math.sin(am))} ${f(p[0])} ${f(p[1])}`;}
+  return d;
+}
+function face(expr){
+  const sw=`fill="none" stroke="${L}" stroke-linecap="round" stroke-linejoin="round"`;
+  const dots=`<g class="eyes">${[78,122].map(x=>`<ellipse cx="${x}" cy="117" rx="5" ry="7" fill="${L}"/><circle cx="${x+1.5}" cy="114" r="1.6" fill="#fff"/>`).join('')}</g>`;
+  const big=`<g class="eyes">${[78,122].map(x=>`<ellipse cx="${x}" cy="116" rx="7.5" ry="9.5" fill="${L}"/><circle cx="${x+2.5}" cy="112" r="3.2" fill="#fff"/><circle cx="${x-2.5}" cy="120" r="1.7" fill="#fff"/>`).join('')}</g>`;
+  let e=dots,m=`<path d="M93 129 L107 129 L100 138 Z" fill="#EE6B5E" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>`,x='';
+  if(expr==='happy'){
+    e=`<path ${sw} stroke-width="4.5" d="M69 119 Q77 107 85 119 M115 119 Q123 107 131 119"/>`;
+    m=`<path d="M89 127 Q100 146 111 127 Z" fill="#EE6B5E" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>`;
+  }else if(expr==='focus'){
+    e=`<g class="eyes"><ellipse cx="78" cy="120" rx="4.5" ry="5.5" fill="${L}"/><ellipse cx="122" cy="120" rx="4.5" ry="5.5" fill="${L}"/></g><path ${sw} stroke-width="3.5" d="M68 107 L86 111 M132 107 L114 111"/>`;
+    m=`<path ${sw} stroke-width="3.5" d="M93 134 Q100 130 107 134"/><path d="M103 133 q7 1 6 8 q-6 1 -8 -6z" fill="#FF8A8A" stroke="${L}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  }else if(expr==='sparkle'){
+    e=big;m=`<path d="M90 128 L110 128 Q109 143 100 143 Q91 143 90 128Z" fill="#EE6B5E" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>`;
+  }else if(expr==='curious'){
+    m=`<ellipse cx="100" cy="134" rx="5" ry="6.5" fill="#EE6B5E" stroke="${L}" stroke-width="3"/>`;
+  }else if(expr==='teary'){
+    e=big+`<path d="M69 127 q9 4 18 0 M113 127 q9 4 18 0" fill="none" stroke="#6CC3EE" stroke-width="3" stroke-linecap="round"/>`;
+    m=`<path ${sw} stroke-width="3.5" d="M91 137 q4.5 -5 9 0 q4.5 5 9 0"/>`;
+    x=`<path class="drop" d="M67 128 q-5 8 0 11 q5 -3 0 -11z" fill="#8FD6F7" stroke="${L}" stroke-width="2"/><path class="drop d2" d="M133 128 q-5 8 0 11 q5 -3 0 -11z" fill="#8FD6F7" stroke="${L}" stroke-width="2"/>`;
+  }
+  return `<ellipse cx="64" cy="131" rx="10.5" ry="7.5" fill="${CH}"/><ellipse cx="136" cy="131" rx="10.5" ry="7.5" fill="${CH}"/>${e}${m}${x}`;
+}
+function body(shirt){
+  return `<ellipse cx="86" cy="215" rx="11" ry="6" fill="${SK}" stroke="${L}" stroke-width="3.5"/><ellipse cx="114" cy="215" rx="11" ry="6" fill="${SK}" stroke="${L}" stroke-width="3.5"/>
+  <path d="M72 198 h56 v12 q-28 6 -56 0z" fill="${PANTS}" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M66 156 Q100 146 134 156 L142 200 Q100 210 58 200 Z" fill="${shirt}" stroke="${L}" stroke-width="4" stroke-linejoin="round"/>`;
+}
+function armsSvg(kind,c){
+  const A=(d,h,cls='')=>`<g class="${cls}"><path d="${d}" fill="none" stroke="${L}" stroke-width="17" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="10" stroke-linecap="round"/><circle cx="${h[0]}" cy="${h[1]}" r="8.5" fill="${SK}" stroke="${L}" stroke-width="3.5"/></g>`;
+  const dl=A('M70 166 Q56 180 52 194',[51,196]),dr=A('M130 166 Q144 180 148 194',[149,196]);
+  const st=`stroke="${L}" stroke-width="3" stroke-linejoin="round"`;
+  switch(kind){
+    case'wave':return dl+A('M132 164 Q158 152 170 130',[171,128],'wave');
+    case'pencil':return dl+`<g class="scribble"><g transform="translate(161 150) rotate(25)"><rect x="-5" y="-36" width="10" height="34" fill="#FFD23F" ${st}/><rect x="-5" y="-45" width="10" height="9" rx="2" fill="#FF9FB3" ${st}/><path d="M-5 -2 L5 -2 L0 12Z" fill="#F5D6A8" ${st}/></g>${A('M130 166 Q150 164 160 152',[161,150])}</g>`;
+    case'cheer':return A('M70 164 Q46 152 32 132',[31,130],'cheerL')+A('M130 164 Q154 152 168 132',[169,130],'cheerR');
+    case'chest':return A('M70 166 Q78 182 90 178',[91,177])+A('M130 166 Q122 182 110 178',[109,177]);
+    case'letter':return `<rect x="74" y="164" width="52" height="38" rx="4" fill="#fff" ${st}/><path d="M82 175 h36 M82 183 h36 M82 191 h22" stroke="#F6ABB6" stroke-width="2.5" stroke-linecap="round"/>`+A('M70 166 Q68 182 74 188',[75,189])+A('M130 166 Q132 182 126 188',[125,189]);
+    default:return dl+dr;
+  }
+}
+const HEART='M0 4 C0 -3 -9 -5 -11 2 C-13 9 -4 13 0 18 C4 13 13 9 11 2 C9 -5 0 -3 0 4Z';
+function accSvg(acc){
+  if(acc==='hearts')return [[24,58,1.1,0],[180,36,1.3,.3],[16,150,.8,.6],[186,150,.9,.9]].map(([x,y,s,d])=>`<g transform="translate(${x} ${y}) scale(${s})"><path class="fh" style="animation-delay:-${d}s" d="${HEART}" fill="#FF6B81" stroke="${L}" stroke-width="2.5" stroke-linejoin="round"/></g>`).join('');
+  if(acc==='question')return `<g class="q"><text x="166" y="46" font-family="Jua,sans-serif" font-size="46" fill="#FF6B81" stroke="${L}" stroke-width="2.5" paint-order="stroke">?</text></g>`;
+  return '';
+}
+function girl({expr='normal',arms='down',acc=''}={}){
+  return `<svg class="chara" viewBox="0 0 200 224" aria-hidden="true"><g>
+  ${body(YEL)}
+  <g class="head">
+    <g class="pony" fill="${GH}" stroke="${L}" stroke-width="4" stroke-linejoin="round">
+      <path d="M180 92 q12 4 10 16 q-4 8 -12 4 q6 -6 2 -20z"/>
+      <circle cx="184" cy="82" r="10"/><circle cx="183" cy="66" r="12"/><circle cx="170" cy="52" r="14"/>
+      <path d="M178 62 q6 2 8 8 M176 78 q5 2 6 7" fill="none" stroke-width="2.4" opacity=".5"/>
+    </g>
+    <ellipse cx="100" cy="106" rx="63" ry="56" fill="${SK}" stroke="${L}" stroke-width="4"/>
+    ${face(expr)}
+    <path d="M36 114 C30 60 62 38 100 38 C138 38 170 60 164 114 Q160 98 152 92 Q140 102 126 92 Q112 102 98 92 Q84 102 70 92 Q58 100 48 92 Q40 100 36 114Z" fill="${GH}" stroke="${L}" stroke-width="4" stroke-linejoin="round"/>
+    <path class="lock-l" d="M42 100 Q28 120 38 142 Q42 136 48 138 Q44 122 50 106Z" fill="${GH}" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>
+    <path class="lock-r" d="M158 100 Q172 120 162 142 Q158 136 152 138 Q156 122 150 106Z" fill="${GH}" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M70 50 Q76 66 72 86 M100 44 Q104 62 100 86 M130 50 Q134 66 128 86" fill="none" stroke="${L}" stroke-width="2.4" stroke-linecap="round" opacity=".4"/>
+    <path d="M62 56 Q78 44 96 44" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".4"/>
+    <g transform="translate(155 45) rotate(28)" fill="${BOW}" stroke="${L}" stroke-width="3" stroke-linejoin="round"><path d="M0 0 L-16 -9 Q-20 0 -16 9Z"/><path d="M0 0 L16 -9 Q20 0 16 9Z"/><circle r="4.8"/></g>
+  </g>
+  ${armsSvg(arms,YEL)}${accSvg(acc)}
+  </g></svg>`;
+}
+/* 엄마: 중단발 생머리, 앞머리 없음(가운데 가르마) */
+const MOM_BACK='M100 34 C150 34 174 64 174 104 L174 138 Q174 152 160 152 Q150 152 146 142 L100 120 L54 142 Q50 152 40 152 Q26 152 26 138 L26 104 C26 64 50 34 100 34 Z';
+const MOM_LOCK_L='M100 42 Q54 44 40 96 L36 140 Q36 150 46 147 Q50 116 58 92 Q72 64 100 58 Z';
+const MOM_LOCK_R='M100 42 Q146 44 160 96 L164 140 Q164 150 154 147 Q150 116 142 92 Q128 64 100 58 Z';
+function mom({expr='normal',arms='down',acc=''}={}){
+  const hs=`fill="${MH}" stroke="${L}" stroke-width="4" stroke-linejoin="round"`;
+  return `<svg class="chara" viewBox="0 0 200 224" aria-hidden="true"><g>
+  ${body(PINK)}
+  <g class="head">
+    <path class="hair-back" d="${MOM_BACK}" ${hs}/>
+    <ellipse cx="100" cy="106" rx="63" ry="56" fill="${SK}" stroke="${L}" stroke-width="4"/>
+    ${face(expr)}
+    <path class="lock-l" d="${MOM_LOCK_L}" ${hs}/>
+    <path class="lock-r" d="${MOM_LOCK_R}" ${hs}/>
+    <path d="M84 52 Q62 64 52 100 M116 52 Q138 64 148 100 M68 58 Q54 74 48 106" fill="none" stroke="${L}" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+    <path d="M76 50 Q88 44 98 46" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".35"/>
+  </g>
+  ${armsSvg(arms,PINK)}${accSvg(acc)}
+  </g></svg>`;
+}
+const cw=(svg,w=140,cls='hop')=>`<div class="cw ${cls}" style="width:${w}px"><div class="jel">${svg}</div></div>`;
+
+/* ───────── 공통 UI ───────── */
+let curOv=null;
+function closeOverlay(){if(curOv){curOv.remove();curOv=null;}}
+function openOverlay(html){closeOverlay();const o=document.createElement('div');o.className='overlay';o.innerHTML=html;document.body.appendChild(o);curOv=o;const b=o.querySelector('[data-focus]');if(b)b.focus({preventScroll:true});return o;}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2800);}
+function setBanner(html){bannerEl.innerHTML=html||'';document.body.classList.toggle('has-banner',!!html);}
+function show(html){closeOverlay();app.innerHTML=html;scrollTo(0,0);mountVChars();}
+
+/* 영상 캐릭터: 회색 배경을 매 프레임 바깥에서부터 지워(flood fill) 투명하게 보여 줌.
+   영상이 못 뜨면(자동재생 막힘 등) SVG 캐릭터가 그대로 남음 */
+const vchar=(src,fallbackSvg,w)=>`<div class="cw vchar" style="width:${w}px"><div class="jel"><div class="vfb">${fallbackSvg}</div><canvas aria-hidden="true"></canvas><video src="${src}" muted playsinline webkit-playsinline loop autoplay preload="auto" aria-hidden="true"></video></div></div>`;
+function mountVChars(){
+  if(RM)return;
+  document.querySelectorAll('.vchar:not([data-on])').forEach(el=>{
+    el.dataset.on='1';
+    const v=el.querySelector('video'),cv=el.querySelector('canvas'),g=cv.getContext('2d',{willReadFrequently:true});
+    let mask,stack,lastT=-1;
+    function draw(){
+      const w=v.videoWidth,h=v.videoHeight;
+      if(!w||v.currentTime===lastT)return;
+      lastT=v.currentTime;
+      if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;mask=new Uint8Array(w*h);stack=new Int32Array(w*h);}
+      g.drawImage(v,0,0,w,h);
+      const img=g.getImageData(0,0,w,h),d=img.data,br=d[0],bgc=d[1],bb=d[2],T=18,n=w*h;
+      mask.fill(0);let sp=0;
+      const push=i=>{if(mask[i])return;const k=i*4;if(Math.abs(d[k]-br)<T&&Math.abs(d[k+1]-bgc)<T&&Math.abs(d[k+2]-bb)<T){mask[i]=1;stack[sp++]=i;}};
+      for(let x=0;x<w;x++){push(x);push(n-w+x);}
+      for(let y=0;y<h;y++){push(y*w);push(y*w+w-1);}
+      while(sp){const i=stack[--sp],x=i%w;if(x>0)push(i-1);if(x<w-1)push(i+1);if(i>=w)push(i-w);if(i<n-w)push(i+w);}
+      for(let i=0;i<n;i++){
+        const k=i*4;
+        if(mask[i]){d[k+3]=0;continue;}
+        const x=i%w;
+        if((x>0&&mask[i-1])||(x<w-1&&mask[i+1])||(i>=w&&mask[i-w])||(i<n-w&&mask[i+w])){
+          const dist=Math.max(Math.abs(d[k]-br),Math.abs(d[k+1]-bgc),Math.abs(d[k+2]-bb));
+          d[k+3]=Math.max(0,Math.min(255,(dist-12)*5));
+        }
+      }
+      g.putImageData(img,0,0);
+      el.classList.add('ready');
+    }
+    function loop(){if(!el.isConnected){v.pause();v.removeAttribute('src');v.load();return;}draw();requestAnimationFrame(loop);}
+    v.addEventListener('playing',()=>requestAnimationFrame(loop),{once:true});
+    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+  });
+}
+async function copyText(s){
+  try{await navigator.clipboard.writeText(s);return true;}
+  catch(e){const ta=document.createElement('textarea');ta.value=s;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}ta.remove();return ok;}
+}
+
+/* ───────── 링크에 선물 담기 (서버 없음) ───────── */
+const b64={
+  enc(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');},
+  dec(str){str=str.replace(/-/g,'+').replace(/_/g,'/');while(str.length%4)str+='=';const bin=atob(str);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+};
+async function pack(obj){
+  const raw=new TextEncoder().encode(JSON.stringify(obj));
+  if(window.CompressionStream){try{
+    const s=new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+    return 'z'+b64.enc(new Uint8Array(await new Response(s).arrayBuffer()));
+  }catch(e){}}
+  return 'p'+b64.enc(raw);
+}
+async function unpack(str){
+  let raw=b64.dec(str.slice(1));
+  if(str[0]==='z'){const s=new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'));raw=new Uint8Array(await new Response(s).arrayBuffer());}
+  const g=JSON.parse(new TextDecoder().decode(raw));
+  if(!g||!Array.isArray(g.m)||g.m.length!==11||g.m.some(x=>typeof x!=='string'))throw new Error('bad gift');
+  return{t:nm(g.t,DEF.to),f:nm(g.f,DEF.from),c:nm(g.c,DEF.call),h:nm(g.h,DEF.head),m:g.m.map(x=>x.slice(0,100)),l:typeof g.l==='string'?g.l.slice(0,500):''};
+}
+function hashStr(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;return h.toString(36)+s.length.toString(36);}
+
+/* ───────── 작성자 ───────── */
+function loadDraft(){const d=store.get(KEY_DRAFT)||{};const s=(v,f)=>typeof v==='string'?v:f;
+  return{to:s(d.to,DEF.to),from:s(d.from,DEF.from),call:s(d.call,DEF.call),head:s(d.head,DEF.head),msgs:Array.from({length:11},(_,i)=>s(d.msgs&&d.msgs[i],'')),letter:s(d.letter,''),step:d.step==='s2'?'s2':'s1'};}
+let draft=loadDraft();
+function saveDraft(){const ok=store.set(KEY_DRAFT,draft);const el=$('#saved');if(el&&ok){el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),1200);}}
+const filled=()=>draft.msgs.filter(m=>m.trim()).length;
+const giftFromDraft=()=>({t:nm(draft.to,DEF.to),f:nm(draft.from,DEF.from),c:nm(draft.call,DEF.call),h:nm(draft.head,DEF.head),m:draft.msgs.map(m=>m.trim()),l:draft.letter.trim()});
+
+function renderS1(){
+  draft.step='s1';saveDraft();setBanner('');document.title='영아도리 × 보물이 1111';
+  const fld=(k,label,hint)=>`<label class="field"><span>${label}</span><input data-name="${k}" maxlength="10" autocomplete="off" value="${esc(draft[k])}" placeholder="${DEF[k]}"><small id="h-${k}">${hint}</small></label>`;
+  show(`<section>
+    <div class="hero"><span class="eyebrow">11월 11일 빼빼로데이</span>
+      <h1 class="title"><span id="tTo"></span> × <span id="tFrom"></span> <em>1111</em></h1></div>
+    <div class="hero-chara">
+      <div class="bubble">안녕! 쑥스러워서 못 했던 말,<br>빼빼로 11개에 몰래 담아 보자!</div>
+      ${vchar('media/bomul.mp4',girl({expr:'happy',arms:'wave'}),180)}
+    </div>
+    <div class="panel">
+      ${fld('to','받는 사람 애칭','')}
+      ${fld('from','보내는 사람 애칭 (나)','')}
+      <details class="more"><summary>애칭 더 바꾸기</summary>
+        ${fld('call','11개를 다 뽑았을 때 부르는 말','')}
+        ${fld('head','마지막 편지 첫 줄 애칭','')}
+      </details>
+    </div>
+    <button class="btn primary block" data-act="toS2">빼빼로 채우러 가기 ✏️</button>
+  </section>`);
+  s1Hints();
+}
+function s1Hints(){
+  const g=giftFromDraft();
+  $('#tTo').textContent=g.t;$('#tFrom').textContent=g.f;
+  $('#h-to').textContent=`상자 앞면 → "To. ${g.t}"`;
+  $('#h-from').textContent=`카드 서명 → "${g.t}의 ${iga(g.f)}"`;
+  $('#h-call').textContent=`"${g.c}, 11개 다 찾았다!"`;
+  $('#h-head').textContent=`"사랑하는 ${g.h}에게"`;
+}
+const slotHtml=(m,i)=>`<div class="slot ${m.trim()?'done':''}" id="slot${i}">
+  <div class="slot-head"><span class="mini f-${FLAVORS[i]}"></span><span>${i+1}번째 빼빼로</span><span class="check" aria-hidden="true">✓</span><span class="cnt">${100-m.length}자 남음</span></div>
+  <textarea data-slot="${i}" maxlength="100" rows="2" aria-label="${i+1}번째 빼빼로 메시지" placeholder="예) ${esc(IDEAS[i])}">${esc(m)}</textarea></div>`;
+function renderS2(){
+  draft.step='s2';saveDraft();setBanner('');
+  const n=filled();
+  show(`<section>
+    <div class="prog"><div class="prog-top"><span>빼빼로 채우기</span><span><b id="pn">${n}</b> / 11<small id="saved" class="saved">자동 저장 ✓</small></span></div>
+      <div class="prog-sticks">${draft.msgs.map((m,i)=>`<span class="ps ${m.trim()?'on':''}" id="ps${i}"></span>`).join('')}</div></div>
+    <div class="side">${cw(girl({expr:'focus',arms:'pencil'}),112,'jl')}
+      <div class="bubble left">한 칸에 한 마디씩!<br>짧아도 괜찮아 ✏️</div></div>
+    <button class="btn ghost" data-act="ideas">💡 빈 칸을 예시로 채우기</button>
+    <div id="slots">${draft.msgs.map(slotHtml).join('')}</div>
+    <div class="slot"><div class="slot-head"><span style="font-size:26px">💌</span><span>마지막 편지 <small>(선택)</small></span><span class="cnt" id="lc">${500-draft.letter.length}자 남음</span></div>
+      <textarea id="letter" maxlength="500" rows="6" aria-label="마지막 편지" placeholder="11개를 다 뽑으면 열리는 편지예요. 비워 두면 기본 편지가 들어가요.">${esc(draft.letter)}</textarea></div>
+  </section>
+  <div class="bottombar"><div class="inner">
+    <button class="btn" data-act="toS1" aria-label="애칭 고치러 가기">←</button>
+    <button class="btn primary grow" id="toPrev" data-act="preview"></button>
+  </div></div>`);
+  app.querySelectorAll('textarea[data-slot]').forEach(grow);
+  s2Button();
+}
+function grow(t){t.style.height='auto';t.style.height=(t.scrollHeight+6)+'px';}
+function s2Button(){const n=filled(),b=$('#toPrev');if(!b)return;b.disabled=n<11;b.textContent=n<11?`${11-n}개 더 써 주세요`:'다 썼다! 미리보기 👀';$('#pn').textContent=n;}
+function slotChanged(i,t,was){
+  const now=!!t.value.trim(),el=$('#slot'+i);
+  el.querySelector('.cnt').textContent=`${100-t.value.length}자 남음`;
+  el.classList.toggle('done',now);$('#ps'+i).classList.toggle('on',now);
+  s2Button();
+  if(now&&!was){const r=el.querySelector('.mini').getBoundingClientRect();FX.burst(r.left+8,r.top+16,8,['star','heart']);
+    if(filled()===11){toast('빼빼로 11개 완성! 🎉');FX.rain(50);}}
+}
+function fillIdeas(){
+  let c=0;draft.msgs.forEach((m,i)=>{if(!m.trim()){draft.msgs[i]=IDEAS[i];c++;}});
+  if(!c){toast('빈 칸이 없어요!');return;}
+  saveDraft();renderS2();toast(`${c}칸을 예시로 채웠어요. 내 말로 고쳐 보세요!`);
+}
+function renderPreview(){
+  if(filled()<11)return;
+  startReceiver(giftFromDraft(),{preview:true});
+}
+async function renderS4(){
+  setBanner('');
+  show(`<section>
+    ${vchar('media/bomul.mp4',girl({expr:'sparkle',arms:'chest',acc:'hearts'}),170)}
+    <h2 class="title sm center">선물 포장 완료! 두근두근</h2>
+    <div id="s4"><p class="center" style="margin-top:16px">링크를 만드는 중…</p></div>
+    <button class="btn ghost block" data-act="edit">← 메시지 다시 고치기</button>
+  </section>`);
+  const g=giftFromDraft();let payload;
+  try{payload=await pack(g);if(!payload||payload.length<8)throw 0;}
+  catch(e){$('#s4').innerHTML=`<div class="panel warn"><h3>저장하지 못했어요. 다시 시도해 주세요</h3><p>쓴 내용은 이 기기에 그대로 남아 있어요.</p><button class="btn primary block" data-act="save" style="margin:0 0 12px">다시 시도</button></div>`;return;}
+  const base=location.href.split('#')[0];
+  const rUrl=base+'#g='+payload,eUrl=base+'#e='+payload;
+  const local=location.protocol==='file:'||/^(localhost|127\.|\[::1\])/.test(location.hostname);
+  $('#s4').innerHTML=`
+    ${local?`<div class="panel warn"><h3>⚠️ 아직 내 컴퓨터에서만 열려요</h3><p>이 파일을 인터넷에 올린 주소에서 링크를 만들어야 ${esc(g.t)} 휴대폰에서 열려요.</p></div>`:''}
+    <div class="panel"><h3>💌 ${esc(g.t)}에게 보낼 링크</h3>
+      <div class="linkbox"><input readonly id="rUrl" aria-label="받는 사람용 링크" value="${esc(rUrl)}"></div>
+      <div class="row"><button class="btn primary" data-act="share">카톡으로 보내기</button><button class="btn" data-act="copyR">링크 복사</button></div></div>
+    <div class="panel"><h3>✏️ 수정 링크 (나만 보관!)</h3>
+      <p>이 링크로 들어오면 내용을 다시 고칠 수 있어요. 메시지가 링크 안에 들어 있어서, 고친 뒤에는 새 링크를 다시 보내야 해요.</p>
+      <div class="linkbox"><input readonly id="eUrl" aria-label="수정용 링크" value="${esc(eUrl)}"></div>
+      <div class="row"><button class="btn" data-act="copyE">수정 링크 복사</button></div></div>`;
+  FX.rain(70);
+}
+async function shareGift(){
+  const g=giftFromDraft(),url=$('#rUrl').value;
+  const text=`${g.t}! ${iga(g.f)} 보낸 빼빼로 11개가 도착했어요 🍫 하나씩 뽑아 보세요!`;
+  if(navigator.share){try{await navigator.share({title:`To. ${g.t} · 빼빼로 1111`,text,url});return;}catch(e){if(e&&e.name==='AbortError')return;}}
+  toast(await copyText(text+'\n'+url)?'복사했어요! 카카오톡 대화창에 붙여넣어 주세요':'복사하지 못했어요. 링크를 길게 눌러 복사해 주세요');
+}
+
+/* ───────── 수신자 (미리보기와 공용) ───────── */
+let R=null;
+function shuffle(a){ // Fisher–Yates
+  for(let i=a.length-1;i>0;i--){const r=new Uint32Array(1);crypto.getRandomValues(r);const j=r[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function startReceiver(g,{preview,key}){
+  let st=preview?null:store.get(key);
+  const ok=st&&Array.isArray(st.order)&&st.order.length===11&&Array.isArray(st.taken)&&st.opened>=0&&st.opened<=11;
+  if(!ok)st={order:shuffle([0,1,2,3,4,5,6,7,8,9,10]),taken:[],opened:0,firstOpenedAt:Date.now()};
+  R={g,st,preview,key,busy:false};persist();
+  if(preview)setBanner(`<div class="bn"><p>👀 미리보기<br><small>${esc(g.t)}에게 보일 화면 · 기록은 안 남아요</small></p><button class="btn" data-act="edit">수정하기</button><button class="btn primary" data-act="save">링크 만들기</button></div>`);
+  else{setBanner('');document.title=`To. ${g.t} · 빼빼로 1111`;}
+  st.opened>=11?renderLetter(false):renderBox();
+}
+function persist(){if(R&&!R.preview)store.set(R.key,R.st);}
+function renderBox(){
+  const{g,st}=R,left=11-st.opened;
+  show(`<section>
+    <div class="hero"><span class="eyebrow">빼빼로데이 선물 도착!</span>
+      <h1 class="title sm">${esc(g.t)} × ${esc(g.f)} <em>1111</em></h1>
+      <div class="cw hug" style="width:150px"><div class="jel"><img src="media/hug.png" width="177" height="173" alt="엄마와 딸이 볼을 맞대고 꼭 안고 있는 그림, 귀여운 울엄마~" onerror="this.closest('.hug').remove()"></div></div></div>
+    <div class="box">
+      <div class="box-back"></div>
+      <div class="sticks">${HEIGHTS.map((h,i)=>`<button class="sb ${st.taken.includes(i)?'gone':''}" data-stick="${i}" aria-label="빼빼로 ${i+1}번 뽑기"><span class="stick f-${FLAVORS[i]}" style="--h:${h}px;--i:${i}"></span></button>`).join('')}</div>
+      <div class="box-front"><div class="box-to">To. ${esc(g.t)}</div>
+        <div class="box-count" aria-live="polite">남은 빼빼로 <b id="left">${left}</b>개</div></div>
+    </div>
+    <p class="hint">아무 빼빼로나 톡! 눌러 보세요 👆</p>
+    <div id="seenWrap">${seenBtn()}</div>
+  </section>`);
+}
+const seenBtn=()=>R.st.opened?`<button class="btn ghost block" data-act="reread">지금까지 뽑은 메시지 ${R.st.opened}개 보기</button>`:'';
+function drawStick(btn){
+  if(!R||R.busy||R.st.opened>=11)return;
+  const i=+btn.dataset.stick;if(R.st.taken.includes(i))return;
+  R.busy=true;
+  const idx=R.st.order[R.st.opened];
+  R.st.taken.push(i);R.st.opened++;persist();
+  const r=btn.getBoundingClientRect();
+  btn.classList.add('pulled');btn.disabled=true;
+  FX.burst(r.left+r.width/2,r.top+40,16);
+  setTimeout(()=>{btn.classList.add('gone');showCard(idx,R.st.opened,FLAVORS[i]);R.busy=false;},RM?50:620);
+}
+function showCard(idx,nth,flavor){
+  const{g}=R;let k=0;
+  const words=g.m[idx].split(/(\s+)/).map(w=>/^\s*$/.test(w)?esc(w):`<span class="w" style="animation-delay:${(.35+.07*k++).toFixed(2)}s">${esc(w)}</span>`).join('');
+  openOverlay(`<div class="card" role="dialog" aria-modal="true" aria-label="${nth}번째 빼빼로 메시지">
+    <div class="card-top">${cw(mom({expr:'happy'}),76,'jl')}<div class="badge"><b>${nth}</b>번째 빼빼로 <small>/ 11</small></div></div>
+    <div class="pep-h f-${flavor}"></div>
+    <p class="msg" aria-label="${esc(g.m[idx])}">${words}</p>
+    <div class="sign"><span>${esc(g.t)}의 ${esc(iga(g.f))}</span>${cw(girl({expr:'happy',arms:'cheer'}),62,'hop')}</div>
+    <button class="btn primary block" data-focus data-act="${nth<11?'nextStick':'celebrate'}">${nth<11?'다음 빼빼로 뽑기 🍫':'11개 다 뽑았다! 🎉'}</button>
+  </div>`);
+  const c=curOv.querySelector('.card').getBoundingClientRect();
+  FX.burst(c.left+c.width/2,c.top+30,12,['heart','star']);
+}
+function nextStick(){
+  closeOverlay();
+  const l=$('#left');if(l){l.textContent=11-R.st.opened;l.classList.remove('bump');void l.offsetWidth;l.classList.add('bump');}
+  const s=$('#seenWrap');if(s)s.innerHTML=seenBtn();
+}
+function celebrate(){
+  const{g}=R;
+  openOverlay(`<div class="celebrate" role="dialog" aria-modal="true" aria-label="11개 완료">
+    <div class="duo">${cw(mom({expr:'happy',arms:'cheer'}),150,'hop')}${cw(girl({expr:'happy',arms:'cheer'}),150,'hop d2')}</div>
+    <h2 class="big-pop">${esc(g.c)},<br>11개 다 찾았다!</h2>
+    <button class="btn primary" data-focus data-act="openLetter">마지막 편지 열기 💌</button>
+  </div>`);
+  FX.rain(130);
+}
+function renderLetter(first){
+  const{g}=R;
+  show(`<section>
+    ${cw(mom({expr:'teary',arms:'letter'}),150,'sway')}
+    <article class="letter" aria-label="마지막 편지">
+      <p class="l-head">사랑하는 ${esc(g.h)}에게</p>
+      <div class="l-body">${esc(g.l||DEFAULT_LETTER)}</div>
+      <p class="l-sign">— ${esc(g.t)}의 ${esc(iga(g.f))}</p>
+    </article>
+    <button class="btn block" data-act="reread">메시지 11개 다시 읽기 📖</button>
+    ${R.preview?'<button class="btn ghost block" data-act="preview">처음부터 다시 체험하기</button>':''}
+  </section>`);
+  if(first)FX.rain(80,['heart','heart','dot','star']);
+}
+function reread(){
+  const{g,st}=R;
+  openOverlay(`<div class="card" role="dialog" aria-modal="true" aria-label="뽑은 메시지 모아 보기">
+    <div class="card-top">${cw(girl({expr:'happy',arms:'wave'}),70,'jl')}<div class="badge">뽑은 메시지 <b>${st.opened}</b>개</div></div>
+    ${st.order.slice(0,st.opened).map((idx,n)=>`<div class="rr-item"><div class="rr-n">${n+1}번째 빼빼로</div><div class="rr-m">${esc(g.m[idx])}</div></div>`).join('')}
+    <button class="btn primary block" data-focus data-act="closeOv">닫기</button>
+  </div>`);
+}
+function renderBroken(){
+  setBanner('');
+  show(`<section class="center">${cw(mom({expr:'curious',acc:'question'}),160,'sway')}
+    <h2 class="title sm">앗, 링크가 중간에 잘렸나 봐요</h2>
+    <p style="margin-top:10px">받은 링크를 처음부터 끝까지 다시 눌러 주세요.</p></section>`);
+}
+
+/* ───────── 이벤트 ───────── */
+const ACTS={
+  toS1:renderS1,toS2:renderS2,ideas:fillIdeas,preview:renderPreview,edit:renderS2,save:renderS4,share:shareGift,
+  copyR:async()=>toast(await copyText($('#rUrl').value)?'링크를 복사했어요!':'복사하지 못했어요'),
+  copyE:async()=>toast(await copyText($('#eUrl').value)?'수정 링크를 복사했어요. 나만 보관하세요!':'복사하지 못했어요'),
+  nextStick,celebrate,openLetter:()=>renderLetter(true),reread,closeOv:closeOverlay
+};
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-act]');
+  if(a){if(!a.disabled&&ACTS[a.dataset.act])ACTS[a.dataset.act]();return;}
+  const s=e.target.closest('[data-stick]');
+  if(s){drawStick(s);return;}
+  const c=e.target.closest('.cw');
+  if(c){spring(c.querySelector('.jel'));const r=c.getBoundingClientRect();FX.burst(r.left+r.width/2,r.top+r.height/3,10,['heart','star']);}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&curOv&&curOv.querySelector('[data-act="closeOv"]'))closeOverlay();});
+app.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.slot!==undefined){const i=+t.dataset.slot,was=!!draft.msgs[i].trim();draft.msgs[i]=t.value;saveDraft();grow(t);slotChanged(i,t,was);}
+  else if(t.id==='letter'){draft.letter=t.value;saveDraft();$('#lc').textContent=`${500-t.value.length}자 남음`;}
+  else if(t.dataset.name){draft[t.dataset.name]=t.value;saveDraft();s1Hints();}
+});
+
+/* ───────── 시작 ───────── */
+async function boot(){
+  const h=location.hash.slice(1);
+  if(h.startsWith('g=')){
+    try{const p=h.slice(2);startReceiver(await unpack(p),{preview:false,key:'pp1111:r:'+hashStr(p)});}
+    catch(e){renderBroken();}
+    return;
+  }
+  if(h.startsWith('e=')){
+    try{const g=await unpack(h.slice(2));draft={to:g.t,from:g.f,call:g.c,head:g.h,msgs:g.m.slice(),letter:g.l,step:'s2'};saveDraft();
+      history.replaceState(null,'',location.pathname+location.search);toast('보냈던 선물을 불러왔어요. 고친 뒤 새 링크를 보내 주세요!');}
+    catch(e){toast('수정 링크를 읽지 못했어요');}
+  }
+  draft.step==='s2'?renderS2():renderS1();
+}
+addEventListener('hashchange',()=>location.reload());
+boot();
+})();
+</script>
+</body>
+</html>
