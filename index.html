@@ -652,7 +652,7 @@ function renderLetter(first){
       <p class="l-sign">— ${esc(g.t)}의 ${esc(iga(g.f))}</p>
     </article>
     <button class="btn block" data-act="reread">메시지 11개 다시 읽기 📖</button>
-    ${R.preview?'<button class="btn ghost block" data-act="preview">처음부터 다시 체험하기</button>':''}
+    <button class="btn ghost block" data-act="restart">처음부터 다시 뽑기 🔄</button>
   </section>`);
   if(first)FX.rain(80,['heart','heart','dot','star']);
 }
@@ -672,7 +672,21 @@ function renderBroken(){
 }
 
 /* ───────── 이벤트 ───────── */
+/* 다시 뽑기: 이 기기에 저장된 이 링크의 기록만 지우고 순서를 새로 섞음 (링크·메시지는 그대로) */
+function askRestart(){
+  openOverlay(`<div class="card" role="dialog" aria-modal="true" aria-label="처음부터 다시 뽑기">
+    <div class="card-top">${cw(girl({expr:'sparkle',arms:'cheer'}),76,'hop')}<div class="badge">한 번 더?</div></div>
+    <p class="msg" style="min-height:0;margin-top:12px">빼빼로 11개를 처음부터 다시 뽑을까요? 순서는 새로 섞여요.</p>
+    <button class="btn primary block" data-focus data-act="restartGo">다시 뽑기 🍫</button>
+    <button class="btn ghost block" data-act="closeOv">그대로 둘래요</button>
+  </div>`);
+}
+function restartDraw(){
+  R.st={order:shuffle([0,1,2,3,4,5,6,7,8,9,10]),taken:[],opened:0,firstOpenedAt:R.st.firstOpenedAt||Date.now(),rounds:(R.st.rounds||1)+1};
+  persist();renderBox();toast('빼빼로를 다시 채웠어요! 🍫');
+}
 const ACTS={
+  restart:askRestart,restartGo:restartDraw,
   toS1:renderS1,toS2:renderS2,ideas:fillIdeas,preview:renderPreview,edit:renderS2,save:renderS4,share:shareGift,
   copyR:async()=>toast(await copyText($('#rUrl').value)?'링크를 복사했어요!':'복사하지 못했어요'),
   copyE:async()=>toast(await copyText($('#eUrl').value)?'수정 링크를 복사했어요. 나만 보관하세요!':'복사하지 못했어요'),
